@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <div class="tag">
+
+    <p class="post"><%= notice %></p>
+
+    <% if current_user.role == "contractor" %>
+
+      <h1 class="post">Applications on Your Post: <%= @applications.count %> person Apply</h1>
+
+      <% @applications.each do |application| %>
+        <div class="post">
+          <%= render partial: "layouts/user_profile", locals: {curr_user: application.user} %><br>
+          <strong>Applicant name:</strong> <%= application.user.name %><br>
+          <strong>Applicant email:</strong> <%= application.user.email %><br>
+          <strong>Applicant contact:</strong> <%= application.user.phone_no %><br>
+          <strong>Applicant address:</strong> <%= application.user.address %><br>
+          <strong>Applicant Bio:</strong> <%= application.user.bio %><br><br>
+          <div class="text-success text-center"<strong>Applicant status:</strong> <%= application.status %><br><br></div>
+          <%= link_to 'Select',selected_path(application.post.id,application.user.id),class: 'btn btn-primary' %>
+          <%= link_to 'Reject',rejected_path(application.post.id,application.user.id),class: 'btn btn-danger' %>
+        </div>
+
+        <hr class="my-4">
+
+      <% end %>
+
+      <div class="post"><%= link_to 'Back', posts_path, class: 'btn btn-secondary' %></div>
+
+    <% else %>
+
+    <h1 class="post">Your Job Applications: You applied for <%= @applied_jobs.count %> Jobs</h1>
+
+    <% @applied_jobs.each do |applied_job| %>
+
+      <div class="post">
+        <strong>Job Post:</strong><%= render partial: "layouts/attachment", locals: {curr_post: applied_job.post} %><br>
+        <strong>Job Name:</strong> <%= applied_job.post.name %><br>
+        <strong>Job description:</strong> <%= applied_job.post.description %><br>
+        <strong>Vacancy:</strong> <%= applied_job.post.vacancy %><br>
+        <strong>Salary:</strong> <%= applied_job.post.salary %><br>
+        <strong>Qualifications:</strong> <%= applied_job.post.qualification %><br>
+        <div class="text-success text-center"><strong>Status:</strong> <%= applied_job.status %><br></div>
+
+        <h3 class="mt-3">Contact Details:</h3>
+
+        <div class="post">
+          <strong>Posted By:</strong> <%= applied_job.post.user.name %><br>
+          <strong>Email:</strong> <%= applied_job.post.user.email %><br>
+          <strong>Contact number:</strong> <%= applied_job.post.user.phone_no %><br>
+          <strong>Address:</strong> <%= applied_job.post.user.address %><br>
+        </div>
+
+        <hr class="my-4">
+
+      </div>
+
+    <% end %>
+
+    <div class="post"><%= link_to 'Back', root_path, class: 'btn btn-secondary' %></div>
+
+    <% end %>
+  </div>
+</div>

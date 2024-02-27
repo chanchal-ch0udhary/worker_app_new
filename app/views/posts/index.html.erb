@@ -1,0 +1,76 @@
+<%= form_with url: "/search", method: :get, local: false,id: "search-form",remote:true do |form| %>
+  <div class="form-group">
+    <%= form.label :search, "Search for:" %>
+    <%= form.text_field :search, value: params[:search],class: 'form-control', required: true %>
+    <%= form.submit "Search", class: 'btn btn-primary mt-2',remote: true %>
+  </div>
+<% end %>
+
+<div id="main">
+
+  <h1 class="text-center">Job Post</h1>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="post">Job Profile</th>
+        <th class="post">Job Name</th>
+        <th class="post">Job Description</th>
+        <th class="post">Vacancy</th>
+        <th class="post">Salary</th>
+        <th class="post">Qualification</th>
+        <th class="post">Actions</th>
+      </tr>
+    </thead> 
+
+    <% if current_user.role == "contractor" %>
+      <% @posts.each do |post| %>
+        <tbody>
+          <tr>
+            <td class="post"><%= render partial: "layouts/attachment", locals: {curr_post: post} %></td>
+            <td class="post"><%= post.name %></td>
+            <td class="post"><%= post.description %></td>
+            <td class="post"><%= post.vacancy %></td>
+            <td class="post"><%= post.salary %></td>
+            <td class="post"><%= post.qualification %></td>
+            <td class="post"><%= link_to 'View', post, class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary btn-sm' %>
+            <%= link_to 'Delete', "/posts/#{post.id}", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger btn-sm' %>
+            <%= link_to 'Applications', "/show_applies/#{post.id}", class: 'btn btn-info btn-sm' %>
+          </tr>
+        </tbody>
+      <% end %>
+    <% else %>
+    <% @posts.each do |post| %>
+      <% if post.vacancy > 0 %>
+        <tbody>
+          <tr>
+            <td class="post"><%= post.user.name %></td>
+          </tr>
+          <tr>
+            <td class="post"><%= render partial: "layouts/attachment", locals: {curr_post: post} %></td>
+            <td class="post"><%= post.name %></td>
+            <td class="post"><%= post.description %></td>
+            <td class="post"><%= post.vacancy %></td>
+            <td class="post"><%= post.salary %></td>
+            <td class="post"><%= post.qualification %></td>
+            <td class="post"><%= link_to 'View', post, class: 'btn btn-primary btn-sm' %></td>
+            <td class="post"><%= link_to 'Apply', apply_path(post), class: 'btn btn-success btn-sm' %></td>
+          </tr>
+        </tbody>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+  </table>
+
+  <%= paginate @posts%>
+
+  <div class="post mt-3">
+    <%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+  </div>
+
+</div>
+
+

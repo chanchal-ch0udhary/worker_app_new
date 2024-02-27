@@ -1,0 +1,12 @@
+<% if curr_user.image.attached? %>
+
+        <div class="col-md-3">
+
+          <p class="User_profile img text-center">
+            <strong>Profile Picture:</strong><br>
+            <%= image_tag(url_for(curr_user.image), class: "img-fluid rounded-circle") %>
+          </p>
+
+        </div>
+
+<% end %>

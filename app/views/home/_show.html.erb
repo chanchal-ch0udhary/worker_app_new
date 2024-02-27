@@ -1,0 +1,21 @@
+<div class="container mt-4">
+
+  <div class="tab">
+    
+    <div class="row">
+    <%= render partial: "layouts/user_profile", locals: {curr_user: current_user} %>
+      
+      <div class="col-md-9">
+        <p class="text-uppercase"><strong>Role:</strong> <b><%= current_user.role %></b></p>
+        <p class="User_profile"><strong>Name:</strong> <%= current_user.name %></p>
+        <p class="User_profile"><strong>Email:</strong> <%= current_user.email %></p>
+        <p class="User_profile"><strong>Contact:</strong> <%= current_user.phone_no %></p>
+        <p class="User_profile"><strong>Address:</strong> <%= current_user.address %></p>
+        <p class="User_profile"><strong>Bio:</strong> <%= current_user.bio %></p>
+      </div>
+
+    </div>
+
+  </div>
+  
+</div>

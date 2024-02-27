@@ -1,0 +1,38 @@
+<% if user_signed_in? %>
+
+  <div class="container mt-4">
+
+    <h1 class="display-4">Welcome,<%= current_user.name %>!</h1>
+    <%= render "show"%>
+
+  </div>
+
+<% else %>
+
+  <div class="container mt-4">
+
+    <h1 class="display-4,blockquote text-center"><b class="text-info">Book trusted help</b></h1>
+    <h1 class="display-4,blockquote text-center"><b class="text-info">for home tasks</b></h1>
+
+    <%= form_with url: "/search", method: :get, remote: true do |form| %>
+
+      <div class="form-group">
+        <%= form.label :search, "Search for:" %>
+
+        <div class="input-group">
+        
+          <%= form.text_field :search, value: params[:search],class: 'form-control', required: true %>
+          
+          <div class="input-group-append">
+            <%= form.submit "Search", class: 'btn btn-primary' %>
+          </div>
+
+        </div>
+
+      </div>
+
+    <% end %>
+    
+  </div>
+
+<% end %>

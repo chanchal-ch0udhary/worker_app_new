@@ -1,0 +1,5 @@
+<% if curr_post.post_image.attached? %>
+  <div class="Post-image-container mt-3">
+    <%= image_tag(url_for(curr_post.post_image), class: "img-thumbnail", style: "width:300px; height:auto;") %>
+  </div>
+<% end %>

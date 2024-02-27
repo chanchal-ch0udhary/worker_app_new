@@ -1,0 +1,21 @@
+<div class="container mt-4">
+
+  <div class="tab">
+
+    <h1 class="post">Job Post :-</h1>
+
+    <%= render partial: "layouts/attachment", locals: { curr_post: @post } %>
+
+    <p class="post"><strong>Name:</strong> <%= @post.name %></p>
+    <p class="post"><strong>Description:</strong> <%= @post.description %></p>
+    <p class="post"><strong>Vacancy:</strong> <%= @post.vacancy %></p>
+    <p class="post"><strong>Salary:</strong> <%= @post.salary %></p>
+    <p class="post"><strong>Qualification:</strong> <%= @post.qualification %></p>
+
+    <div class="post mt-3">
+      <%= link_to 'Back', posts_path, class: 'btn btn-secondary' %>
+    </div>
+
+  </div>
+
+</div>

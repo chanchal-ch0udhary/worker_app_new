@@ -1,0 +1,50 @@
+<%= form_for @post, html: { class: 'mt-4' } do |form| %>
+
+  <% if @post.errors.any? %>
+      <div class="alert alert-danger">
+        <% @post.errors.full_messages.each do |message| %>
+          <p class="post"><%= message %></p>
+        <% end %>
+      </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :Post_pic %><br>
+    <%= form.file_field :post_image, class: 'form-control' %>
+  </div>
+
+  <div class="form-group,required">
+    <%= form.label :Category_name %><br>
+    <%= form.collection_select(:category_id, Category.all, :id, :name, { prompt: 'Select' }, class: 'form-control') %>
+  </div>
+
+  <div class="form-group,required">
+    <%= form.label :Name %><br>
+    <%= form.text_field :name, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group,required">
+    <%= form.label :description %><br>
+    <%= form.text_area :description, class: 'form-control', required: true %>
+  </div> 
+
+  <div class="form-group,required">
+    <%= form.label :Vacancy %><br>
+    <%= form.number_field :vacancy, min: 1, max: 1000,class: 'form-control', required: true %>
+  </div> 
+
+  <div class="form-group,required">
+    <%= form.label :salary %><br>
+    <%= form.number_field :salary, min: 1000, max: 1000000, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group,required">
+    <%= form.label :qualification %><br>
+    <%= form.text_area :qualification, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit 'Submit', class: 'btn btn-primary' %><br>
+  </div>
+  
+<% end %>

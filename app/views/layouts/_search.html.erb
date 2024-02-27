@@ -1,0 +1,45 @@
+<div id="results_container" class="container mt-4">
+
+  <table class="table table-bordered">
+
+    <thead>
+      <tr>
+        <th class="post">Job Profile</th>
+        <th class="post">Job Role</th>
+        <th class="post">Job Description</th>
+        <th class="post">Vacancy</th>
+        <th class="post">Salary</th>
+        <th class="post">Qualification</th>
+        <th class="post">Actions</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% posts.each do |post| %>
+        <tr>
+          <td class="post"><%= render partial: "layouts/attachment", locals: {curr_post: post} %></td>
+          <td class="post"><%= post.name %></td>
+          <td class="post"><%= post.description %></td>
+          <td class="post"><%= post.vacancy %></td>
+          <td class="post"><%= post.salary %></td>
+          <td class="post"><%= post.qualification %></td>
+          <td class="post">
+            <%= link_to 'View', post, class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary btn-sm' if current_user.role == 'contractor' %>
+            <%= link_to 'Delete', "/posts/#{post.id}", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' if current_user.role == 'contractor'%>
+            <%= link_to 'Apply', apply_path(post), class: 'btn btn-success btn-sm' if current_user.role != 'contractor' %>
+            <%= link_to 'Applications', "/show_applies/#{post.id}", class: 'btn btn-info btn-sm' if current_user.role == 'contractor' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+    <%= paginate @posts%>
+
+</div>
+
+<div class="post mt-3">
+    <%= link_to 'Back', posts_path, class: 'btn btn-secondary' %>
+</div>
